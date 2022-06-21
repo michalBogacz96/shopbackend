@@ -1,10 +1,11 @@
 package app.shop.service
 
 import app.shop.entity.UserEntity
+import org.springframework.security.core.Authentication
 
 interface UserService {
 
-    fun getUserById(id: Long) : UserEntity?
+    fun getUserById(id: Long?) : UserEntity?
 
     fun getAllUsers(): List<UserEntity?>?
 
@@ -18,10 +19,8 @@ interface UserService {
 
     fun getUserByEmail(email: String?): UserEntity
 
+    fun getUserByEmail(authentication: Authentication): UserEntity
 
-    fun getStringLowercase(text : String) : String
 
     fun getUserByUsername(userName : String) :UserEntity
-
-
 }

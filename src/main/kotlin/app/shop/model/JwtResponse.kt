@@ -1,3 +1,6 @@
 package app.shop.model
 
-class JwtResponse(val token : String)
+class JwtResponse(val accessToken : String) {
+
+    val tokenType : String = "Bearer"
+}

@@ -14,14 +14,18 @@ class UserEntity {
     val id: Long? = null
 
     @Column(name = "first_name")
-    val firstName: String? = null
+    var firstName: String? = null
 
     @Column(name = "last_name")
     val lastName: String? = null
 
     @Column(name = "email")
-    val email: String? = null
+    var email: String? = null
 
     @Column(name = "password")
     val password: String? = null
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "auth_provider")
+    var authProvider: AuthenticationProvider? = null
 }

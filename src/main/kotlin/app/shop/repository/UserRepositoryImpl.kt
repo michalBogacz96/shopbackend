@@ -12,31 +12,30 @@ import org.springframework.stereotype.Repository
 class UserRepositoryImpl : UserRepository {
 
     @Autowired
-    private val sessionFactory: SessionFactory? = null
+    lateinit var sessionFactory: SessionFactory
 
     val logger : Logger = LoggerFactory.getLogger("UserRepositoryImpl")
 
-
     override fun getUserById(id: Long?): UserEntity? {
-        val session = sessionFactory!!.currentSession!!
+        val session = sessionFactory.currentSession!!
         val user = session.get(UserEntity::class.java, id)
         return user
     }
 
     override val getAllUserEntities: List<UserEntity>
         get() {
-            val session = sessionFactory!!.currentSession
+            val session = sessionFactory.currentSession
             return session.createQuery("from UserEntity ", UserEntity::class.java).list()
         }
 
     override fun saveUser(userEntity: UserEntity?): UserEntity? {
-        val session = sessionFactory!!.currentSession
+        val session = sessionFactory.currentSession
         session.saveOrUpdate(userEntity)
         return userEntity
     }
 
     override fun createUser(userEntity: UserEntity) {
-        val session = sessionFactory!!.currentSession!!
+        val session = sessionFactory.currentSession!!
         logger.info("create User method")
         logger.info("email: ${userEntity.email}")
 
@@ -44,14 +43,13 @@ class UserRepositoryImpl : UserRepository {
     }
 
     override fun getUserByEmail(email: String?): UserEntity {
-        val session = sessionFactory!!.currentSession!!
-        var userEntity : UserEntity =  session.createQuery("from UserEntity as item where item.email = :username", UserEntity::class.java)
-            .setParameter("username", email).uniqueResult()
-        return userEntity
+        val session = sessionFactory.currentSession!!
+        return session.createQuery("from UserEntity as item where item.email = :email", UserEntity::class.java)
+            .setParameter("email", email).uniqueResult()
     }
 
     override fun deleteUserById(id: Long?) {
-        val session = sessionFactory!!.currentSession
+        val session = sessionFactory.currentSession
         val user = session.get(UserEntity::class.java, id)
         session.delete(user)
     }

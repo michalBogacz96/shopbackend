@@ -2,17 +2,21 @@ package app.shop.service
 
 import app.shop.entity.UserEntity
 import app.shop.repository.UserRepository
+import app.shop.security.UserPrincipal
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.security.core.userdetails.User
+import org.springframework.security.core.Authentication
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
+import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 
 @Service
-class UserServiceImpl : UserService, UserDetailsService {
+class UserServiceImpl : UserService
+    ,   UserDetailsService
+{
 
 
     @Autowired
@@ -21,7 +25,7 @@ class UserServiceImpl : UserService, UserDetailsService {
     val logger: Logger = LoggerFactory.getLogger("UserService")
 
     @Transactional
-    override fun getUserById(id: Long): UserEntity? {
+    override fun getUserById(id: Long?): UserEntity? {
         logger.info("getUserMethod: get user with id: $id")
         return userRepository.getUserById(id)
     }
@@ -63,16 +67,24 @@ class UserServiceImpl : UserService, UserDetailsService {
     }
 
     @Transactional
+    override fun getUserByEmail(authentication: Authentication): UserEntity {
+        val userPrincipal: UserPrincipal = authentication.principal as UserPrincipal
+        return userRepository.getUserByEmail(userPrincipal.email)
+    }
+
+    @Transactional
     override fun loadUserByUsername(username: String?): UserDetails {
-        var userEntity : UserEntity = getUserByEmail(username)
-        return User(userEntity.email, userEntity.password, listOf())
-//        return User("admin", "password", listOf())
+        val userEntity : UserEntity = getUserByEmail(username)
+        return UserPrincipal.create(userEntity)
     }
 
-    override fun getStringLowercase(text: String): String {
-        return text.lowercase()
+    @Transactional
+    fun loadUserById(id: Long?): UserDetails? {
+        val user: UserEntity = getUserById(id) ?: throw UsernameNotFoundException("User not found")
+        return UserPrincipal.create(user)
     }
 
+    @Transactional
     override fun getUserByUsername(email: String): UserEntity {
         return getUserByEmail(email)
     }

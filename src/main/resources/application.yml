@@ -1,0 +1,21 @@
+app:
+  auth:
+    tokenSecret: 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
+    tokenExpirationMsec: 864000000
+  oauth2:
+    authorizedRedirectUris:
+      - http://localhost:3000/oauth2/redirect
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 285760505077-p3jikeklq25nfr3fmvtn25m06cgktlk9.apps.googleusercontent.com
+            client-secret: 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
+            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+            scope:
+              - email
+              - profile
+
