@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 import java.rmi.ServerException
 
 
-@CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 @RestController
 @RequestMapping("/user")
 class UserController {
@@ -43,7 +42,7 @@ class UserController {
     var logger : Logger = LoggerFactory.getLogger("UserController")
 
 
-    @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
+    @CrossOrigin(origins = ["http://localhost:3000"], allowedHeaders = ["*"])
     @GetMapping("/self")
     @Throws(ServerException::class)
     fun getUser(authentication: Authentication?): UserEntity? {
@@ -62,7 +61,6 @@ class UserController {
         )
     }
 
-    @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
     @GetMapping("/login/oauth/google")
     fun loginBGoogle() : ModelAndView {
 
@@ -87,7 +85,6 @@ class UserController {
         userService.deleteUserById(id)
     }
 
-    @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
     @PostMapping("/register")
     fun registerUser(@RequestBody newUser : UserEntity) : String {
         userService.registerUser(newUser)
@@ -95,7 +92,6 @@ class UserController {
     }
 
 
-    @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
     @PostMapping("/auth")
     @Throws(BadCredentialsException::class)
     fun login(@RequestBody jwtRequest : JwtRequest) : JwtResponse {

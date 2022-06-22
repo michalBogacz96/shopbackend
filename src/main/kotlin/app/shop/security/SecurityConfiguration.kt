@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Lazy
+import org.springframework.core.annotation.Order
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
@@ -30,6 +31,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@Order(-10)
 class SecurityConfiguration(
 
     @Qualifier("userServiceImpl")
@@ -78,9 +80,9 @@ class SecurityConfiguration(
     fun corsConfiguration() : CorsConfigurationSource {
         val corsConfig = CorsConfiguration()
         corsConfig.allowedOrigins = listOf("*")
-        corsConfig.allowedMethods = listOf("*")
+        corsConfig.allowedMethods = listOf("GET", "PUT", "POST", "DELETE", "PATCH")
         corsConfig.allowCredentials = true
-//        corsConfig.allowedHeaders = listOf("Authorization", "Cache-Control", "Content-Type", "Access-Control-Allow-Origin")
+        corsConfig.allowedHeaders = listOf("Authorization", "Cache-Control", "Content-Type")
         corsConfig.allowedHeaders = listOf("*")
         val configSource = UrlBasedCorsConfigurationSource()
         configSource.registerCorsConfiguration("/**", corsConfig)
@@ -93,26 +95,6 @@ class SecurityConfiguration(
         return TokenAuthenticationFilter()
     }
 
-//    @Bean
-//    fun customTokenResponseConverter() : Converter<MutableMap<String, Any>, OAuth2AccessTokenResponse> {
-//        return CustomTokenResponseConverter()
-//    }
-//
-
-//    @Bean
-//    fun accessTokenResponseClient() : OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> {
-//        val accessTokenResponseClient = DefaultAuthorizationCodeTokenResponseClient()
-//
-//        val responseConverter : OAuth2AccessTokenResponseHttpMessageConverter = OAuth2AccessTokenResponseHttpMessageConverter()
-//        responseConverter.setAccessTokenResponseConverter(CustomTokenResponseConverter())
-//        val restTemplate : RestTemplate = RestTemplate(listOf(
-//            FormHttpMessageConverter(), responseConverter
-//        ))
-//
-//        accessTokenResponseClient.setRestOperations(restTemplate)
-//
-//        return accessTokenResponseClient
-//    }
 
     override fun configure(http: HttpSecurity?) {
         http!!
@@ -146,14 +128,14 @@ class SecurityConfiguration(
             .permitAll()
             .antMatchers("/auth/**", "/oauth2/**")
             .permitAll()
-            .antMatchers("/user/token/*")
-            .permitAll()
-            .antMatchers("/user/self")
-            .permitAll()
-            .antMatchers("/user/auth")
-            .permitAll()
-            .antMatchers("/user/me")
-            .permitAll()
+//            .antMatchers("/user/token/*")
+//            .permitAll()
+//            .antMatchers("/user/self")
+//            .permitAll()
+//            .antMatchers("/user/auth")
+//            .permitAll()
+//            .antMatchers("/user/me")
+//            .permitAll()
             .anyRequest()
             .authenticated()
             .and()
@@ -172,7 +154,6 @@ class SecurityConfiguration(
             .failureHandler(oAuth2AuthenticationFailureHandler)
 
 
-        // Add our custom Token based authentication filter
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter::class.java)
 
 

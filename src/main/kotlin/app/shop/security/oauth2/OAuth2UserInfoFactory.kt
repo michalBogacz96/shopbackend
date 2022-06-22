@@ -10,6 +10,8 @@ class OAuth2UserInfoFactory {
         fun getOAuth2UserInfo(registrationId: String, attributes: Map<String, Any>): OAuth2UserInfo {
             return if (registrationId == AuthenticationProvider.google.toString()) {
                 GoogleOAuth2UserInfo(attributes)
+            } else if (registrationId == AuthenticationProvider.github.toString()) {
+                return GithubOAuth2UserInfo(attributes)
             } else {
                 throw OAuth2AuthenticationProcessingException("Sorry! Login with $registrationId is not supported yet.")
             }

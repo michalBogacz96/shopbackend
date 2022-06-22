@@ -6,7 +6,6 @@ import app.shop.service.CategoryService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
-@CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 @RestController
 @RequestMapping("/category")
 class CategoryController {
@@ -15,13 +14,13 @@ class CategoryController {
     @Autowired
     private val categoryService: CategoryService? = null
 
-    @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
+    @CrossOrigin(origins = ["http://localhost:3000"], allowedHeaders = ["Authorization"])
     @GetMapping("/{id}")
     fun getCategory(@PathVariable id: Long?): Category? {
         return categoryService!!.getCategory(id!!)
     }
 
-
+    @CrossOrigin(origins = ["http://localhost:3000"], allowedHeaders = ["Authorization"])
     @GetMapping
     fun getAllCategories(): List<Category?>? {
         return categoryService!!.getAllCategories()

@@ -1,6 +1,6 @@
 app:
   auth:
-    tokenSecret:
+    tokenSecret: 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
     tokenExpirationMsec: 864000000
   oauth2:
     authorizedRedirectUris:
@@ -12,10 +12,16 @@ spring:
       client:
         registration:
           google:
-            client-id:
+            client-id: 
             client-secret:
-            redirectUri:
+            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
             scope:
               - email
               - profile
-
+          github:
+            client-id:
+            client-secret:
+            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+            scope:
+              - user:email
+              - read:user

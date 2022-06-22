@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
-@CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
+//@CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 @RestController
 @RequestMapping("/product")
 class ProductController {
@@ -18,6 +18,7 @@ class ProductController {
 
     val logger: Logger = LoggerFactory.getLogger("ProductController")
 
+    @CrossOrigin(origins = ["http://localhost:3000"], allowedHeaders = ["Authorization"])
     @GetMapping
     fun getAllProducts(): List<Product?>? {
         logger.info("getAllProducts method")
@@ -25,15 +26,15 @@ class ProductController {
     }
 
 
-    @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
+    @CrossOrigin(origins = ["http://localhost:3000"], allowedHeaders = ["Authorization"])
     @GetMapping("/category/{categoryId}")
-    fun getAllProductsByCategoryId(@PathVariable categoryId : Long): List<Product?>? {
+    fun getAllProductsByCategoryId(@PathVariable categoryId: Long): List<Product?>? {
         logger.info("getAllProductsByCategoryId method")
-        val myVar =  productService.getAllProductsByCategoryId(categoryId)
 
-        return myVar
+        return productService.getAllProductsByCategoryId(categoryId)
     }
 
+    @CrossOrigin(origins = ["http://localhost:3000"], allowedHeaders = ["Authorization"])
     @GetMapping("/{id}")
     fun getProductById(@PathVariable id: Long): Product? {
         logger.info("getAllProducts method")
