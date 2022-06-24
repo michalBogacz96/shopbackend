@@ -14,9 +14,7 @@ import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 
 @Service
-class UserServiceImpl : UserService
-    ,   UserDetailsService
-{
+class UserServiceImpl : UserService, UserDetailsService {
 
 
     @Autowired
@@ -74,7 +72,7 @@ class UserServiceImpl : UserService
 
     @Transactional
     override fun loadUserByUsername(username: String?): UserDetails {
-        val userEntity : UserEntity = getUserByEmail(username)
+        val userEntity: UserEntity = getUserByEmail(username)
         return UserPrincipal.create(userEntity)
     }
 

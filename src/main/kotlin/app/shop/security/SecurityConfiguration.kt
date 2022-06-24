@@ -105,8 +105,6 @@ class SecurityConfiguration(
             .and()
             .csrf()
             .disable()
-//            .formLogin()
-//            .disable()
             .httpBasic()
             .disable()
             .exceptionHandling()
@@ -128,14 +126,6 @@ class SecurityConfiguration(
             .permitAll()
             .antMatchers("/auth/**", "/oauth2/**")
             .permitAll()
-//            .antMatchers("/user/token/*")
-//            .permitAll()
-//            .antMatchers("/user/self")
-//            .permitAll()
-//            .antMatchers("/user/auth")
-//            .permitAll()
-//            .antMatchers("/user/me")
-//            .permitAll()
             .anyRequest()
             .authenticated()
             .and()
@@ -153,80 +143,6 @@ class SecurityConfiguration(
             .successHandler(oAuth2AuthenticationSuccessHandler)
             .failureHandler(oAuth2AuthenticationFailureHandler)
 
-
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter::class.java)
-
-
-//        http!!
-//            .httpBasic()
-//            .disable()
-//            .exceptionHandling()
-//            .authenticationEntryPoint(RestAuthenticationEntryPoint())
-//            .and()
-//            .antMatcher("/**")
-//            .authorizeRequests()
-//            .antMatchers("/login").permitAll()
-//            .antMatchers("/").permitAll()
-//            .antMatchers("/login/oauth/google").permitAll()
-//            .antMatchers("/auth/**", "/oauth2/**").permitAll()
-//            .anyRequest().authenticated()
-//            .and()
-//            .oauth2Login()
-//                .authorizationEndpoint()
-//                    .baseUri("/oauth2/authorize")
-//                    .authorizationRequestRepository(cookieAuthorizationRequestRepository())
-//                    .and()
-//                .redirectionEndpoint()
-//                    .baseUri("/oauth2/callback/*")
-//                    .and()
-//                .userInfoEndpoint()
-//                    .userService(customOAuth2UserService)
-//                    .and()
-//                .successHandler(oAuth2AuthenticationSuccessHandler)
-//                .failureHandler(oAuth2AuthenticationFailureHandler);
-//
-//        http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter::class.java)
-//
-
-
-//        http?.csrf()?.disable()?.cors()?.and()
-//            ?.authorizeRequests()?.antMatchers("/user/auth")?.permitAll()
-//            ?.antMatchers(HttpMethod.POST, "/user/register")?.permitAll()
-//            ?.antMatchers("/auth/**", "/oauth2/**")?.permitAll()
-//            ?.anyRequest()?.authenticated()
-//            ?.and()
-//            ?.oauth2Login()
-//            ?.authorizationEndpoint()
-//            ?.baseUri("/oauth2/authorize")
-//            ?.authorizationRequestRepository(cookieAuthorizationRequestRepository())
-//            ?.and()
-//            ?.redirectionEndpoint()
-//            ?.baseUri("/oauth2/callback/*")
-//            ?.and()
-//            ?.userInfoEndpoint()
-//            ?.userService(customOAuth2UserService)
-//            ?.and()
-//            ?.successHandler(oAuth2AuthenticationSuccessHandler)
-//            ?.failureHandler(oAuth2AuthenticationFailureHandler)
-
-//        http?.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
-
-
-
-//            ?.antMatchers(HttpMethod.GET, "/category/{\\d+}")?.permitAll()
-//            ?.antMatchers(HttpMethod.GET, "/category")?.permitAll()
-//            ?.antMatchers(HttpMethod.GET, "/product/{\\d+}")?.permitAll()
-//            ?.antMatchers(HttpMethod.GET, "/product")?.permitAll()
-//            ?.antMatchers("/user/hello")?.permitAll()
-//            ?.anyRequest()?.authenticated()
-//            ?.and()
-//            ?.sessionManagement()
-//            ?.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//            ?.and()
-//            ?.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
     }
-
-//    private fun cookieAuthorizationRequestRepository(): AuthorizationRequestRepository<OAuth2AuthorizationRequest?> {
-//        return HttpCookieOAuth2AuthorizationRequestRepository()
-//    }
 }

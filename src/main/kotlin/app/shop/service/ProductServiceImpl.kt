@@ -50,7 +50,6 @@ class ProductServiceImpl : ProductService {
     @Transactional
     override fun getAllProductsByCategoryId(categoryId: Long): List<Product?>? {
         val allProducts: List<Product?>? = productRepository.getAllProducts
-        val filteredProducts =  allProducts?.filter { product -> product?.categoryEntity!!.id!! == categoryId }?.toList()
-        return filteredProducts
+        return allProducts?.filter { product -> product?.categoryEntity!!.id!! == categoryId }?.toList()
     }
 }

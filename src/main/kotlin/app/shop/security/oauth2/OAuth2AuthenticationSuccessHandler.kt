@@ -80,7 +80,6 @@ class OAuth2AuthenticationSuccessHandler @Autowired constructor(
         return appProperties.oauth2.authorizedRedirectUris
             .stream()
             .anyMatch { authorizedRedirectUri: String ->
-                // Only validate host and port. Let the clients use different paths if they want to
                 val authorizedURI = URI.create(authorizedRedirectUri)
                 if (authorizedURI.host.equals(clientRedirectUri.host, ignoreCase = true)
                     && authorizedURI.port == clientRedirectUri.port

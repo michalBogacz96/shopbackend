@@ -88,7 +88,7 @@ class UserController {
     @PostMapping("/register")
     fun registerUser(@RequestBody newUser : UserEntity) : String {
         userService.registerUser(newUser)
-        return "Dodalem uzytkownika"
+        return "Dodano uzytkownika"
     }
 
 
@@ -96,7 +96,6 @@ class UserController {
     @Throws(BadCredentialsException::class)
     fun login(@RequestBody jwtRequest : JwtRequest) : JwtResponse {
         val token : String = tokenProvider.getToken(jwtRequest.email, jwtRequest.password)
-        println(token)
         return JwtResponse(token)
     }
 

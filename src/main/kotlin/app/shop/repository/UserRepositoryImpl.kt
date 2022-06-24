@@ -38,7 +38,6 @@ class UserRepositoryImpl : UserRepository {
         val session = sessionFactory.currentSession!!
         logger.info("create User method")
         logger.info("email: ${userEntity.email}")
-
         session.save(userEntity)
     }
 

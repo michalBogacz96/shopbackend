@@ -9,7 +9,6 @@ import javax.transaction.Transactional
 @Service
 class CategoryServiceImpl : CategoryService {
 
-
     @Autowired
     lateinit var categoryRepository: CategoryRepository
 

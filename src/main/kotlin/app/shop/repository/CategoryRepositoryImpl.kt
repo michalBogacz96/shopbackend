@@ -32,7 +32,7 @@ class CategoryRepositoryImpl : CategoryRepository {
 
     override fun deleteCategory(id: Long?) {
         val session = sessionFactory!!.currentSession
-        val carEntity = session.get(Category::class.java, id)
-        session.delete(carEntity)
+        val category = session.get(Category::class.java, id)
+        session.delete(category)
     }
 }

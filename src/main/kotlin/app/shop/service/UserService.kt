@@ -21,6 +21,5 @@ interface UserService {
 
     fun getUserByEmail(authentication: Authentication): UserEntity
 
-
     fun getUserByUsername(userName : String) :UserEntity
 }

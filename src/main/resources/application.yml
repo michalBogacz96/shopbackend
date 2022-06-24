@@ -1,6 +1,6 @@
 app:
   auth:
-    tokenSecret: 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
+    tokenSecret:
     tokenExpirationMsec: 864000000
   oauth2:
     authorizedRedirectUris:

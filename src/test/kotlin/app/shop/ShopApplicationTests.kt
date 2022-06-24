@@ -8,6 +8,7 @@ class ShopApplicationTests {
 
     @Test
     fun contextLoads() {
+        println("Hello friends")
     }
 
 }

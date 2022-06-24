@@ -23,7 +23,6 @@ import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.MalformedJwtException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.context.annotation.Lazy
 import java.security.SignatureException
 
 
@@ -97,7 +96,7 @@ class TokenProvider : Serializable {
     }
 
     fun tokenIsValid(token: String, userDetails: UserDetails): Boolean {
-        var username: String = getUserNameFromToken(token)
+        val username: String = getUserNameFromToken(token)
         return (username == userDetails.username) && !(isTokenExpired(token))
     }
 

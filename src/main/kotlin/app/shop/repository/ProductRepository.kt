@@ -9,4 +9,5 @@ interface ProductRepository {
     val getAllProducts: List<Product?>?
     fun saveProduct(product: Product?): Product?
     fun deleteProductById(id: Long?)
+    fun getProductPrice(product: Long): Long
 }

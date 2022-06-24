@@ -11,11 +11,9 @@ class ProductRepositoryImpl : ProductRepository {
     @Autowired
     private val sessionFactory: SessionFactory? = null
 
-
     override fun getProductById(id: Long?): Product? {
         val session = sessionFactory!!.currentSession!!
-        val product2 = session.get(Product::class.java, id)!!
-        return product2
+        return session.get(Product::class.java, id)!!
     }
 
     override val getAllProducts: List<Product>
@@ -34,5 +32,10 @@ class ProductRepositoryImpl : ProductRepository {
         val session = sessionFactory!!.currentSession
         val carEntity = session.get(Product::class.java, id)
         session.delete(carEntity)
+    }
+
+    override fun getProductPrice(product: Long): Long {
+        val product = getProductById(product)!!
+        return product.price!!.toLong()
     }
 }

@@ -21,10 +21,8 @@ class TokenAuthenticationFilter : OncePerRequestFilter() {
     @Autowired
     lateinit var tokenProvider: TokenProvider
 
-
     @Autowired
     lateinit var customUserDetailsService: UserServiceImpl
-
 
 
     @Throws(ServletException::class, IOException::class)
