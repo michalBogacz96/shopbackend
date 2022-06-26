@@ -60,20 +60,23 @@ class UserServiceImpl : UserService, UserDetailsService {
     }
 
     @Transactional
-    override fun getUserByEmail(email: String?): UserEntity {
+    override fun getUserByEmail(email: String?): UserEntity? {
         return userRepository.getUserByEmail(email)
     }
 
     @Transactional
-    override fun getUserByEmail(authentication: Authentication): UserEntity {
+    override fun getUserByEmail(authentication: Authentication): UserEntity? {
         val userPrincipal: UserPrincipal = authentication.principal as UserPrincipal
         return userRepository.getUserByEmail(userPrincipal.email)
     }
 
     @Transactional
-    override fun loadUserByUsername(username: String?): UserDetails {
-        val userEntity: UserEntity = getUserByEmail(username)
-        return UserPrincipal.create(userEntity)
+    override fun loadUserByUsername(username: String?): UserDetails? {
+        val userEntity: UserEntity? = getUserByEmail(username)
+        if (userEntity != null) {
+            return UserPrincipal.create(userEntity)
+        }
+        return null
     }
 
     @Transactional
@@ -83,7 +86,7 @@ class UserServiceImpl : UserService, UserDetailsService {
     }
 
     @Transactional
-    override fun getUserByUsername(email: String): UserEntity {
+    override fun getUserByUsername(email: String): UserEntity? {
         return getUserByEmail(email)
     }
 }

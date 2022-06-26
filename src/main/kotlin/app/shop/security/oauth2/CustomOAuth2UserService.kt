@@ -20,7 +20,7 @@ class CustomOAuth2UserService : DefaultOAuth2UserService() {
    lateinit var userRepository : UserRepository
 
     @Transactional
-    override fun loadUser(oAuth2UserRequest: OAuth2UserRequest?): OAuth2User {
+    override fun loadUser(oAuth2UserRequest: OAuth2UserRequest?): OAuth2User? {
         val oAuth2User: OAuth2User = super.loadUser(oAuth2UserRequest)
 
         try {
@@ -33,16 +33,19 @@ class CustomOAuth2UserService : DefaultOAuth2UserService() {
     }
 
     @Transactional
-    fun processOAuthUser(oAuth2UserRequest: OAuth2UserRequest?, oAuth2User: OAuth2User): OAuth2User {
-        val oAuth2UserInfo :  OAuth2UserInfo = OAuth2UserInfoFactory
+    fun processOAuthUser(oAuth2UserRequest: OAuth2UserRequest?, oAuth2User: OAuth2User): OAuth2User? {
+        val oAuth2UserInfo: OAuth2UserInfo = OAuth2UserInfoFactory
             .getOAuth2UserInfo(oAuth2UserRequest!!.clientRegistration.registrationId, oAuth2User.attributes)
 
-        if (oAuth2UserInfo.getEmail().isEmpty()){
+        if (oAuth2UserInfo.getEmail().isEmpty()) {
             throw OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider")
         }
 
-        val user : UserEntity = userRepository.getUserByEmail(oAuth2UserInfo.getEmail())
+        val user: UserEntity? = userRepository.getUserByEmail(oAuth2UserInfo.getEmail())
 
-        return UserPrincipal.create(user, oAuth2User.attributes)
+        if (user != null) {
+            return UserPrincipal.create(user, oAuth2User.attributes)
+        }
+        return null
     }
 }

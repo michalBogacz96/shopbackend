@@ -10,6 +10,6 @@ interface UserRepository {
     fun saveUser(userEntity: UserEntity?): UserEntity?
     fun deleteUserById(id: Long?)
     fun createUser(userEntity: UserEntity)
-    fun getUserByEmail(email: String?): UserEntity
+    fun getUserByEmail(email: String?): UserEntity?
 
 }

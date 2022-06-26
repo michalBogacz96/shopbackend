@@ -17,9 +17,9 @@ interface UserService {
 
     fun registerUser(newUserEntity: UserEntity)
 
-    fun getUserByEmail(email: String?): UserEntity
+    fun getUserByEmail(email: String?): UserEntity?
 
-    fun getUserByEmail(authentication: Authentication): UserEntity
+    fun getUserByEmail(authentication: Authentication): UserEntity?
 
-    fun getUserByUsername(userName : String) :UserEntity
+    fun getUserByUsername(userName : String) :UserEntity?
 }

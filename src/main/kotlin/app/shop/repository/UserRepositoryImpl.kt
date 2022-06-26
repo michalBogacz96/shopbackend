@@ -41,10 +41,11 @@ class UserRepositoryImpl : UserRepository {
         session.save(userEntity)
     }
 
-    override fun getUserByEmail(email: String?): UserEntity {
+    override fun getUserByEmail(email: String?): UserEntity? {
         val session = sessionFactory.currentSession!!
-        return session.createQuery("from UserEntity as item where item.email = :email", UserEntity::class.java)
+        val queryResult : UserEntity? = session.createQuery("from UserEntity as item where item.email = :email", UserEntity::class.java)
             .setParameter("email", email).uniqueResult()
+        return queryResult
     }
 
     override fun deleteUserById(id: Long?) {

@@ -35,8 +35,8 @@ class TokenAuthenticationFilter : OncePerRequestFilter() {
             val jwt = getJwtFromRequest(request)
             if (jwt != null && StringUtils.hasText(jwt)) {
                 val userEmail: String = tokenProvider.getUserNameFromToken(jwt)
-                val userDetails: UserDetails = customUserDetailsService.loadUserByUsername(userEmail)
-                val authentication = UsernamePasswordAuthenticationToken(userDetails, null, userDetails.authorities)
+                val userDetails: UserDetails? = customUserDetailsService.loadUserByUsername(userEmail)
+                val authentication = UsernamePasswordAuthenticationToken(userDetails, null, userDetails!!.authorities)
                 authentication.details = WebAuthenticationDetailsSource().buildDetails(request)
                 SecurityContextHolder.getContext().authentication = authentication
             }

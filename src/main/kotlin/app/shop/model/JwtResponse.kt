@@ -1,3 +1,3 @@
 package app.shop.model
 
-class JwtResponse(val accessToken : String)
+data class JwtResponse(var accessToken: String? = null, var message: String? = null, var status: Boolean? = null)
