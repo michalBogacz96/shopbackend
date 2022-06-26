@@ -8,7 +8,6 @@ import app.shop.model.RegisterResponse
 import app.shop.security.CurrentUser
 import app.shop.security.TokenProvider
 import app.shop.security.UserPrincipal
-import app.shop.service.OrderService
 import app.shop.service.OrderUserService
 import app.shop.service.UserService
 import org.slf4j.Logger

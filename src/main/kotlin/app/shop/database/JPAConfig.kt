@@ -1,6 +1,5 @@
 package app.shop.database
 
-import app.shop.config.AppProperties
 import com.mchange.v2.c3p0.ComboPooledDataSource
 import org.springframework.beans.factory.annotation.Autowired
 import java.beans.PropertyVetoException

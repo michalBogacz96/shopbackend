@@ -1,7 +1,6 @@
 package app.shop.repository
 
 import app.shop.entity.OrderUserEntity
-import app.shop.entity.UserEntity
 
 interface OrderUserRepository {
 
