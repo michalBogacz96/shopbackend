@@ -1,10 +1,11 @@
 app:
   auth:
-    tokenSecret:
+    tokenSecret: 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
     tokenExpirationMsec: 864000000
   oauth2:
     authorizedRedirectUris:
       - http://localhost:3000/oauth2/redirect
+
 
 spring:
   security:
@@ -12,16 +13,21 @@ spring:
       client:
         registration:
           google:
-            client-id: 
-            client-secret:
+            client-id: 285760505077-p3jikeklq25nfr3fmvtn25m06cgktlk9.apps.googleusercontent.com
+            client-secret: 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
             redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
             scope:
               - email
               - profile
           github:
-            client-id:
-            client-secret:
+            client-id: e78a04812983dba8b05c
+            client-secret: 20e164138cc89ffd51de3572a8fe95b395a9e65e
             redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
             scope:
               - user:email
               - read:user
+
+
+database:
+  user: b5847ae296e239
+  password: 44a2b9ad

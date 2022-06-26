@@ -1,7 +1,8 @@
 package app.shop.database
 
+import app.shop.config.AppProperties
 import com.mchange.v2.c3p0.ComboPooledDataSource
-import kotlin.Throws
+import org.springframework.beans.factory.annotation.Autowired
 import java.beans.PropertyVetoException
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -12,6 +13,9 @@ import javax.sql.DataSource
 @Configuration
 class JPAConfig {
 
+    @Autowired
+    lateinit var databaseProperties: DatabaseProperties
+
 
     @get:Throws(PropertyVetoException::class)
     @get:Bean(name = ["dataSource"])
@@ -21,8 +25,8 @@ class JPAConfig {
             dataSource.driverClass = "com.mysql.cj.jdbc.Driver"
             dataSource.jdbcUrl =
                     "jdbc:mysql://eu-cdbr-west-02.cleardb.net:3306/heroku_5e862376badc49f?useSSL=false&serverTimezone=UTC"
-            dataSource.user = "b5847ae296e239"
-            dataSource.password = "44a2b9ad"
+            dataSource.user = databaseProperties.user
+            dataSource.password = databaseProperties.password
             /* Connection pool properties */
             dataSource.initialPoolSize = 5
             dataSource.minPoolSize = 5

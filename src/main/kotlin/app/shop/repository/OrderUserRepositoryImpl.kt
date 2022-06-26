@@ -18,4 +18,9 @@ class OrderUserRepositoryImpl : OrderUserRepository {
                 .setParameter("email", email)
         return orderUser.uniqueResult()
     }
+
+    override fun createUser(orderUserEntity: OrderUserEntity) {
+        val session = sessionFactory.currentSession!!
+        session.save(orderUserEntity)
+    }
 }

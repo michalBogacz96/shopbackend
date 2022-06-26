@@ -1,10 +1,8 @@
 package app.shop.security
 
 
-import app.shop.security.oauth2.CustomOAuth2UserService
-import app.shop.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository
-import app.shop.security.oauth2.OAuth2AuthenticationFailureHandler
-import app.shop.security.oauth2.OAuth2AuthenticationSuccessHandler
+import app.shop.security.oauth2.*
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -24,7 +22,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import java.lang.Exception
 import org.springframework.security.config.BeanIds
 import org.springframework.security.config.http.SessionCreationPolicy
-import org.springframework.security.crypto.password.NoOpPasswordEncoder
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 
@@ -44,7 +42,10 @@ class SecurityConfiguration(
     var oAuth2AuthenticationSuccessHandler : OAuth2AuthenticationSuccessHandler,
 
     @Lazy
-    var oAuth2AuthenticationFailureHandler : OAuth2AuthenticationFailureHandler
+    var oAuth2AuthenticationFailureHandler : OAuth2AuthenticationFailureHandler,
+
+    @Lazy
+    var encryptor: PasswordEncryptor
 
 
 ) : WebSecurityConfigurerAdapter() {
@@ -53,7 +54,7 @@ class SecurityConfiguration(
     override fun configure(authenticationManagerBuilder: AuthenticationManagerBuilder) {
         authenticationManagerBuilder
             .userDetailsService(userServiceImpl)
-//            .passwordEncoder(passwordEncoder())
+            .passwordEncoder(encryptor.passwordEncoder())
     }
 
 
@@ -63,11 +64,10 @@ class SecurityConfiguration(
         return super.authenticationManagerBean()
     }
 
-    @Bean
-    fun passwordEncoder(): PasswordEncoder {
-        return NoOpPasswordEncoder.getInstance()
+//    @Bean
+//    fun myPasswordEncoder(): PasswordEncoder {
 //        return BCryptPasswordEncoder()
-    }
+//    }
 
 
     @Bean

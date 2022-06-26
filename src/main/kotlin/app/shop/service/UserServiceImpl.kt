@@ -3,6 +3,7 @@ package app.shop.service
 import app.shop.entity.UserEntity
 import app.shop.repository.UserRepository
 import app.shop.security.UserPrincipal
+import app.shop.utils.EncodingUtil
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,6 +20,9 @@ class UserServiceImpl : UserService, UserDetailsService {
 
     @Autowired
     lateinit var userRepository: UserRepository
+
+    @Autowired
+    lateinit var encodingUtil: EncodingUtil
 
     val logger: Logger = LoggerFactory.getLogger("UserService")
 
@@ -56,6 +60,7 @@ class UserServiceImpl : UserService, UserDetailsService {
     override fun registerUser(newUserEntity: UserEntity) {
         logger.info("registerUser method")
         logger.info("user email: ${newUserEntity.email}")
+        newUserEntity.password = encodingUtil.encode(newUserEntity.password)
         userRepository.createUser(newUserEntity)
     }
 

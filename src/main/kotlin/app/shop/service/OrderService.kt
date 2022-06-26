@@ -1,7 +1,6 @@
 package app.shop.service
 
 import app.shop.entity.OrderEntity
-import app.shop.entity.Product
 import app.shop.model.OrderResponse
 import app.shop.security.UserPrincipal
 

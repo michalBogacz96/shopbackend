@@ -22,7 +22,7 @@ data class UserEntity(
     var email: String? = null,
 
     @Column(name = "password")
-    val password: String? = null,
+    var password: String? = null,
 
     @Enumerated(EnumType.STRING)
     @Column(name = "auth_provider")
