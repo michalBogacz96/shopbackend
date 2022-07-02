@@ -18,7 +18,7 @@ class ProductController {
 
     val logger: Logger = LoggerFactory.getLogger("ProductController")
 
-    @CrossOrigin(origins = ["http://localhost:3000"], allowedHeaders = ["Authorization"])
+    @CrossOrigin(origins = ["http://localhost:3000", "https://frontebiznes.azurewebsites.net/"], allowedHeaders = ["Authorization"])
     @GetMapping
     fun getAllProducts(): List<Product?>? {
         logger.info("getAllProducts method")
@@ -26,7 +26,7 @@ class ProductController {
     }
 
 
-    @CrossOrigin(origins = ["http://localhost:3000"], allowedHeaders = ["Authorization"])
+    @CrossOrigin(origins = ["http://localhost:3000", "https://frontebiznes.azurewebsites.net/"], allowedHeaders = ["Authorization"])
     @GetMapping("/category/{categoryId}")
     fun getAllProductsByCategoryId(@PathVariable categoryId: Long): List<Product?>? {
         logger.info("getAllProductsByCategoryId method")
@@ -34,7 +34,7 @@ class ProductController {
         return productService.getAllProductsByCategoryId(categoryId)
     }
 
-    @CrossOrigin(origins = ["http://localhost:3000"], allowedHeaders = ["Authorization"])
+    @CrossOrigin(origins = ["http://localhost:3000", "https://frontebiznes.azurewebsites.net/"], allowedHeaders = ["Authorization"])
     @GetMapping("/{id}")
     fun getProductById(@PathVariable id: Long): Product? {
         logger.info("getAllProducts method")

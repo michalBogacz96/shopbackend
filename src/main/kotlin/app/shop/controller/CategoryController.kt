@@ -14,13 +14,13 @@ class CategoryController {
     @Autowired
     private val categoryService: CategoryService? = null
 
-    @CrossOrigin(origins = ["http://localhost:3000"], allowedHeaders = ["Authorization"])
+    @CrossOrigin(origins = ["http://localhost:3000", "https://frontebiznes.azurewebsites.net/"], allowedHeaders = ["Authorization"])
     @GetMapping("/{id}")
     fun getCategory(@PathVariable id: Long?): Category? {
         return categoryService!!.getCategory(id!!)
     }
 
-    @CrossOrigin(origins = ["http://localhost:3000"], allowedHeaders = ["Authorization"])
+    @CrossOrigin(origins = ["http://localhost:3000", "https://frontebiznes.azurewebsites.net/"], allowedHeaders = ["Authorization"])
     @GetMapping
     fun getAllCategories(): List<Category?>? {
         return categoryService!!.getAllCategories()

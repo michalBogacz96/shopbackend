@@ -15,7 +15,7 @@ class OrderController {
     lateinit var orderService: OrderService
 
     @CrossOrigin(
-        origins = ["http://localhost:3000"],
+        origins = ["http://localhost:3000", "https://frontebiznes.azurewebsites.net/"],
         allowedHeaders = ["Authorization", "Cache-Control", "Content-Type"],
         methods = [RequestMethod.POST])
     @PostMapping
@@ -24,7 +24,7 @@ class OrderController {
     }
 
     @CrossOrigin(
-        origins = ["http://localhost:3000"],
+        origins = ["http://localhost:3000", "https://frontebiznes.azurewebsites.net/"],
         allowedHeaders = ["Authorization", "Cache-Control", "Content-Type"],
         methods = [RequestMethod.GET])
     @GetMapping

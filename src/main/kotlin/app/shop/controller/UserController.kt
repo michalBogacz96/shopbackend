@@ -46,7 +46,7 @@ class UserController {
     var logger : Logger = LoggerFactory.getLogger("UserController")
 
 
-    @CrossOrigin(origins = ["http://localhost:3000"], allowedHeaders = ["*"])
+    @CrossOrigin(origins = ["http://localhost:3000", "https://frontebiznes.azurewebsites.net/"], allowedHeaders = ["*"])
     @GetMapping("/self")
     @Throws(ServerException::class)
     fun getUser(authentication: Authentication?): UserEntity? {
@@ -89,7 +89,7 @@ class UserController {
         userService.deleteUserById(id)
     }
 
-    @CrossOrigin(origins = ["http://localhost:3000"], allowedHeaders = ["*"])
+    @CrossOrigin(origins = ["http://localhost:3000", "https://frontebiznes.azurewebsites.net/"], allowedHeaders = ["*"])
     @PostMapping("/register")
     fun registerUser(@RequestBody newUser: UserEntity): RegisterResponse {
         val registerResponse = RegisterResponse()
@@ -139,7 +139,7 @@ class UserController {
         return registerResponse
     }
 
-    @CrossOrigin(origins = ["http://localhost:3000"], allowedHeaders = ["*"])
+    @CrossOrigin(origins = ["http://localhost:3000", "https://frontebiznes.azurewebsites.net/"], allowedHeaders = ["*"])
     @PostMapping("/auth")
     @Throws(BadCredentialsException::class)
     fun login(@RequestBody jwtRequest: JwtRequest): JwtResponse {
