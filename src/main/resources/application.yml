@@ -5,6 +5,7 @@ app:
   oauth2:
     authorizedRedirectUris:
       - http://localhost:3000/oauth2/redirect
+      - https://frontebiznes.azurewebsites.net/oauth2/redirect
 
 
 spring:
